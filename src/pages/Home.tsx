@@ -13,7 +13,6 @@ import Grid from "@mui/material/Grid"; // Updated import
 import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
-import profileImage from "/images/profileImage.jpg";
 
 const Home: React.FC = () => {
     const theme = useTheme();
@@ -144,7 +143,7 @@ const Home: React.FC = () => {
                             >
                                 <Avatar
                                     alt="Sam Sepasi"
-                                    src={profileImage}
+                                    src="/images/profileImage.jpg"
                                     sx={{
                                         width: { xs: 200, md: 300 },
                                         height: { xs: 200, md: 300 },

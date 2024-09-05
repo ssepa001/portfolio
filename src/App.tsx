@@ -1,5 +1,21 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Button, Container, createTheme, CssBaseline, Drawer, IconButton, List, ListItem, ListItemText, ThemeProvider, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+    AppBar,
+    Box,
+    Button,
+    Container,
+    createTheme,
+    CssBaseline,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    ThemeProvider,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+} from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
@@ -82,7 +98,7 @@ const quotes = [
 
 function App() {
     const [currentQuote, setCurrentQuote] = useState(quotes[0]);
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -97,10 +113,25 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Router>
-                <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                <Box
+                    sx={{
+                        minHeight: "100vh",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
                     <AppBar position="static" color="transparent" elevation={0}>
                         <Toolbar>
-                            <Typography variant="h6" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
+                            <Typography
+                                variant="h6"
+                                component={Link}
+                                to="/"
+                                sx={{
+                                    flexGrow: 1,
+                                    textDecoration: "none",
+                                    color: "inherit",
+                                }}
+                            >
                                 Sam Sepasi
                             </Typography>
                             {isMobile ? (
@@ -119,9 +150,27 @@ function App() {
                                         onClose={() => setMobileMenuOpen(false)}
                                     >
                                         <List>
-                                            {['Home', 'Resume', 'Projects', 'Contact'].map((text) => (
-                                                <ListItem button key={text} component={Link} to={text === 'Home' ? '/' : `/${text.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)}>
-                                                    <ListItemText primary={text} />
+                                            {[
+                                                "Home",
+                                                "Resume",
+                                                "Projects",
+                                                "Contact",
+                                            ].map((text) => (
+                                                <ListItem
+                                                    key={text}
+                                                    component={Link}
+                                                    to={
+                                                        text === "Home"
+                                                            ? "/"
+                                                            : `/${text.toLowerCase()}`
+                                                    }
+                                                    onClick={() =>
+                                                        setMobileMenuOpen(false)
+                                                    }
+                                                >
+                                                    <ListItemText
+                                                        primary={text}
+                                                    />
                                                 </ListItem>
                                             ))}
                                         </List>
@@ -129,10 +178,34 @@ function App() {
                                 </>
                             ) : (
                                 <>
-                                    <Button color="inherit" component={Link} to="/">Home</Button>
-                                    <Button color="inherit" component={Link} to="/resume">Resume</Button>
-                                    <Button color="inherit" component={Link} to="/projects">Projects</Button>
-                                    <Button color="inherit" component={Link} to="/contact">Contact</Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to="/"
+                                    >
+                                        Home
+                                    </Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to="/resume"
+                                    >
+                                        Resume
+                                    </Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to="/projects"
+                                    >
+                                        Projects
+                                    </Button>
+                                    <Button
+                                        color="inherit"
+                                        component={Link}
+                                        to="/contact"
+                                    >
+                                        Contact
+                                    </Button>
                                 </>
                             )}
                         </Toolbar>
@@ -147,58 +220,76 @@ function App() {
                                 exit={{ opacity: 0, y: 20 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <Typography variant="h6" align="center" gutterBottom color="primary" fontStyle="italic">
+                                <Typography
+                                    variant="h6"
+                                    align="center"
+                                    gutterBottom
+                                    color="primary"
+                                    fontStyle="italic"
+                                >
                                     {currentQuote}
                                 </Typography>
                             </motion.div>
                         </AnimatePresence>
 
-                        <AnimatePresence mode='wait'>
+                        <AnimatePresence mode="wait">
                             <Routes>
-                                <Route path="/" element={
-                                    <motion.div
-                                        key="home"
-                                        initial={{ opacity: 0, x: -100 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 100 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Home />
-                                    </motion.div>
-                                } />
-                                <Route path="/resume" element={
-                                    <motion.div
-                                        key="resume"
-                                        initial={{ opacity: 0, x: -100 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 100 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Resume />
-                                    </motion.div>
-                                } />
-                                <Route path="/projects" element={
-                                    <motion.div
-                                        key="projects"
-                                        initial={{ opacity: 0, x: -100 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 100 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Projects />
-                                    </motion.div>
-                                } />
-                                <Route path="/contact" element={
-                                    <motion.div
-                                        key="contact"
-                                        initial={{ opacity: 0, x: -100 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 100 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Contact />
-                                    </motion.div>
-                                } />
+                                <Route
+                                    path="/"
+                                    element={
+                                        <motion.div
+                                            key="home"
+                                            initial={{ opacity: 0, x: -100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 100 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <Home />
+                                        </motion.div>
+                                    }
+                                />
+                                <Route
+                                    path="/resume"
+                                    element={
+                                        <motion.div
+                                            key="resume"
+                                            initial={{ opacity: 0, x: -100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 100 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <Resume />
+                                        </motion.div>
+                                    }
+                                />
+                                <Route
+                                    path="/projects"
+                                    element={
+                                        <motion.div
+                                            key="projects"
+                                            initial={{ opacity: 0, x: -100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 100 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <Projects />
+                                        </motion.div>
+                                    }
+                                />
+                                <Route
+                                    path="/contact"
+                                    element={
+                                        <motion.div
+                                            key="contact"
+                                            initial={{ opacity: 0, x: -100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 100 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <Contact />
+                                        </motion.div>
+                                    }
+                                />
                             </Routes>
                         </AnimatePresence>
                     </Container>
