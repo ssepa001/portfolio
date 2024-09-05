@@ -9,7 +9,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import Grid from "@mui/material/Grid"; // Updated import
+import Grid from "@mui/material/Grid2";
 import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";

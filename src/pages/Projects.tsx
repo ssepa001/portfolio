@@ -1,17 +1,16 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
-import LaunchIcon from "@mui/icons-material/Launch";
 import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Chip,
-  Container,
-  Grid,
-  IconButton,
-  Typography,
-  useTheme,
+    Box,
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Chip,
+    Container,
+    Grid,
+    IconButton,
+    Typography,
+    useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import React from "react";
@@ -32,6 +31,7 @@ const projects: Project[] = [
             "Integrated MindBody, Firebase, and AWS services to create a seamless booking experience for golf simulator users.",
         image: "/images/golfSim.jpg",
         technologies: ["MindBody", "Firebase", "AWS", "React", "Node.js"],
+        liveUrl: "https://booking.fiveirongolf.com/",
     },
     {
         title: "Video Proctoring System",
@@ -45,6 +45,7 @@ const projects: Project[] = [
             "Python",
             "WebRTC",
         ],
+        liveUrl: "https://cuehealth.com/",
     },
     {
         title: "FHIR Compliant APIs",
@@ -52,6 +53,7 @@ const projects: Project[] = [
             "Developed APIs and frontend for an online health clinic, ensuring compliance with FHIR standards for seamless healthcare data exchange.",
         image: "/images/fhir.jpg",
         technologies: ["FHIR", "REST API", "React", "Node.js", "MongoDB"],
+        liveUrl: "https://cuehealth.com/",
     },
     {
         title: "Virtual Care Platform",
@@ -65,6 +67,7 @@ const projects: Project[] = [
             "AWS",
             "HIPAA Compliance",
         ],
+        liveUrl: "https://cuehealth.com/",
     },
 ];
 
@@ -92,6 +95,9 @@ const Projects: React.FC = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <Card
+                                    onClick={() => {
+                                        window.open(project.liveUrl, "_blank");
+                                    }}
                                     sx={{
                                         height: "100%",
                                         display: "flex",
@@ -179,7 +185,7 @@ const Projects: React.FC = () => {
                                                         <GitHubIcon />
                                                     </IconButton>
                                                 )}
-                                                {project.liveUrl && (
+                                                {/* {project.liveUrl && (
                                                     <IconButton
                                                         aria-label="live demo"
                                                         href={project.liveUrl}
@@ -189,7 +195,7 @@ const Projects: React.FC = () => {
                                                     >
                                                         <LaunchIcon />
                                                     </IconButton>
-                                                )}
+                                                )} */}
                                             </Box>
                                         </CardContent>
                                     </CardActionArea>
