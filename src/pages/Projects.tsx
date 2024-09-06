@@ -69,6 +69,20 @@ const projects: Project[] = [
         ],
         liveUrl: "https://cuehealth.com/",
     },
+    {
+        title: "Online Tutoring Platform",
+        description:
+            "Co-founded an online tutoring marketplace company in 2015. Two engineers and hundreds of thousands of code to go production after 12 months.",
+        image: "/images/tutortub.jpg",
+        technologies: [
+            "MeteorJs",
+            "Blaze Js",
+            "MongoDB",
+            "AccurateBackground",
+            "BrainTree",
+        ],
+        liveUrl: "https://tutortub.meteorapp.com/",
+    },
 ];
 
 const Projects: React.FC = () => {
