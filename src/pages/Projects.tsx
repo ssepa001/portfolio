@@ -1,4 +1,5 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LaunchIcon from "@mui/icons-material/Launch";
 import {
     Box,
     Card,
@@ -7,13 +8,13 @@ import {
     CardMedia,
     Chip,
     Container,
-    Grid,
     IconButton,
+    Stack,
     Typography,
     useTheme,
 } from "@mui/material";
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useRef } from "react";
 
 interface Project {
     title: string;
@@ -85,139 +86,299 @@ const projects: Project[] = [
     },
 ];
 
+const ProjectCard = ({
+    project,
+    index,
+}: {
+    project: Project;
+    index: number;
+}) => {
+    const theme = useTheme();
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), {
+        stiffness: 300,
+        damping: 30,
+    });
+    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), {
+        stiffness: 300,
+        damping: 30,
+    });
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        mouseX.set((e.clientX - centerX) / (rect.width / 2));
+        mouseY.set((e.clientY - centerY) / (rect.height / 2));
+    };
+
+    const handleMouseLeave = () => {
+        mouseX.set(0);
+        mouseY.set(0);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+            <motion.div
+                ref={cardRef}
+                style={{
+                    rotateX,
+                    rotateY,
+                    transformStyle: "preserve-3d",
+                    height: "100%",
+                }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                whileHover={{ scale: 1.02, z: 50 }}
+                transition={{ duration: 0.3 }}
+            >
+                <Card
+                    sx={{
+                        height: "100%",
+                        minHeight: 550,
+                        display: "flex",
+                        flexDirection: "column",
+                        background: theme.palette.background.paper,
+                        overflow: "hidden",
+                        position: "relative",
+                        "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: `linear-gradient(135deg, ${theme.palette.primary.main}10, ${theme.palette.secondary.main}10)`,
+                            opacity: 0,
+                            transition: "opacity 0.3s ease",
+                            zIndex: 1,
+                        },
+                        "&:hover::before": {
+                            opacity: 1,
+                        },
+                        "&:hover": {
+                            boxShadow: `0 20px 40px -15px ${theme.palette.primary.main}40`,
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: "relative",
+                            overflow: "hidden",
+                            height: 220,
+                            flexShrink: 0,
+                        }}
+                    >
+                        <CardMedia
+                            component="img"
+                            image={project.image}
+                            alt={project.title}
+                            sx={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                                transition: "transform 0.4s ease",
+                                "&:hover": {
+                                    transform: "scale(1.1)",
+                                },
+                            }}
+                        />
+                        <Box
+                            sx={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                background: `linear-gradient(180deg, transparent 0%, ${theme.palette.background.paper}E6 100%)`,
+                            }}
+                        />
+                    </Box>
+                    <CardContent
+                        sx={{
+                            flexGrow: 1,
+                            position: "relative",
+                            zIndex: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            p: 3,
+                        }}
+                    >
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                                fontWeight="bold"
+                                sx={{
+                                    background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    mb: 2,
+                                    minHeight: "2.5em",
+                                }}
+                            >
+                                {project.title}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                sx={{
+                                    alignContent: "flex-start",
+                                    lineHeight: 1.7,
+                                    mb: 3,
+                                    flexGrow: 1,
+                                    minHeight: "4.5em",
+                                }}
+                            >
+                                {project.description}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    mb: 2,
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 1,
+                                }}
+                            >
+                                {project.technologies.map((tech, techIndex) => (
+                                    <Chip
+                                        key={techIndex}
+                                        label={tech}
+                                        size="small"
+                                        sx={{
+                                            background: `linear-gradient(135deg, ${theme.palette.primary.main}20, ${theme.palette.secondary.main}20)`,
+                                            border: `1px solid ${theme.palette.primary.main}40`,
+                                            fontWeight: 600,
+                                            fontSize: "0.75rem",
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                                transform: "translateY(-2px)",
+                                            },
+                                        }}
+                                    />
+                                ))}
+                            </Box>
+                            <Stack
+                                direction="row"
+                                spacing={1}
+                                justifyContent="flex-end"
+                            >
+                                {project.liveUrl && (
+                                    <IconButton
+                                        aria-label="live demo"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(
+                                                project.liveUrl,
+                                                "_blank",
+                                            );
+                                        }}
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            "&:hover": {
+                                                background: `${theme.palette.primary.main}20`,
+                                                transform: "scale(1.1)",
+                                            },
+                                        }}
+                                    >
+                                        <LaunchIcon />
+                                    </IconButton>
+                                )}
+                                {project.githubUrl && (
+                                    <IconButton
+                                        aria-label="github"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(
+                                                project.githubUrl,
+                                                "_blank",
+                                            );
+                                        }}
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            "&:hover": {
+                                                background: `${theme.palette.primary.main}20`,
+                                                transform: "scale(1.1)",
+                                            },
+                                        }}
+                                    >
+                                        <GitHubIcon />
+                                    </IconButton>
+                                )}
+                            </Stack>
+                        </CardContent>
+                    </Card>
+                </motion.div>
+        </motion.div>
+    );
+};
+
 const Projects: React.FC = () => {
     const theme = useTheme();
 
     return (
         <Container maxWidth="lg">
-            <Box sx={{ my: 8 }}>
-                <Typography
-                    variant="h3"
-                    component="h1"
-                    gutterBottom
-                    align="center"
-                    fontWeight="bold"
-                    color="primary"
+            <Box sx={{ py: { xs: 6, md: 10 } }}>
+                <motion.div
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
                 >
-                    Key Projects
-                </Typography>
-                <Grid container spacing={4}>
+                    <Typography
+                        variant="h2"
+                        component="h1"
+                        align="center"
+                        fontWeight="bold"
+                        sx={{
+                            mb: 2,
+                            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                        }}
+                    >
+                        Featured Projects
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        color="text.secondary"
+                        sx={{ mb: 8, maxWidth: "700px", mx: "auto" }}
+                    >
+                        A collection of projects I've worked on, showcasing my
+                        expertise in full-stack development, cloud architecture,
+                        and modern web technologies.
+                    </Typography>
+                </motion.div>
+
+                <Box
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: {
+                            xs: "1fr",
+                            sm: "repeat(2, 1fr)",
+                        },
+                        gap: 4,
+                    }}
+                >
                     {projects.map((project, index) => (
-                        <Grid item xs={12} md={6} key={index}>
-                            <motion.div
-                                whileHover={{ y: -10 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                <Card
-                                    onClick={() => {
-                                        window.open(project.liveUrl, "_blank");
-                                    }}
-                                    sx={{
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        backgroundColor:
-                                            theme.palette.background.paper,
-                                        boxShadow:
-                                            "0 10px 30px -15px rgba(2,12,27,0.7)",
-                                        "&:hover": {
-                                            boxShadow:
-                                                "0 20px 30px -15px rgba(2,12,27,0.7)",
-                                        },
-                                    }}
-                                >
-                                    <CardActionArea>
-                                        <CardMedia
-                                            component="img"
-                                            height="200"
-                                            image={project.image}
-                                            alt={project.title}
-                                        />
-                                        <CardContent sx={{ flexGrow: 1 }}>
-                                            <Typography
-                                                gutterBottom
-                                                variant="h5"
-                                                component="div"
-                                                fontWeight="bold"
-                                                color="primary"
-                                            >
-                                                {project.title}
-                                            </Typography>
-                                            <Typography
-                                                variant="body2"
-                                                color="text.secondary"
-                                                paragraph
-                                            >
-                                                {project.description}
-                                            </Typography>
-                                            <Box
-                                                sx={{
-                                                    mb: 2,
-                                                    display: "flex",
-                                                    flexWrap: "wrap",
-                                                    gap: 1,
-                                                }}
-                                            >
-                                                {project.technologies.map(
-                                                    (tech, techIndex) => (
-                                                        <Chip
-                                                            key={techIndex}
-                                                            label={tech}
-                                                            size="small"
-                                                            sx={{
-                                                                backgroundColor:
-                                                                    theme
-                                                                        .palette
-                                                                        .primary
-                                                                        .main,
-                                                                color: theme
-                                                                    .palette
-                                                                    .background
-                                                                    .default,
-                                                                fontWeight:
-                                                                    "bold",
-                                                            }}
-                                                        />
-                                                    )
-                                                )}
-                                            </Box>
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    justifyContent: "flex-end",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                {project.githubUrl && (
-                                                    <IconButton
-                                                        aria-label="github"
-                                                        href={project.githubUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        color="primary"
-                                                    >
-                                                        <GitHubIcon />
-                                                    </IconButton>
-                                                )}
-                                                {/* {project.liveUrl && (
-                                                    <IconButton
-                                                        aria-label="live demo"
-                                                        href={project.liveUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        color="primary"
-                                                    >
-                                                        <LaunchIcon />
-                                                    </IconButton>
-                                                )} */}
-                                            </Box>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </motion.div>
-                        </Grid>
+                        <ProjectCard
+                            key={index}
+                            project={project}
+                            index={index}
+                        />
                     ))}
-                </Grid>
+                </Box>
             </Box>
         </Container>
     );
