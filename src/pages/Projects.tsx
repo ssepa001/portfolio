@@ -3,7 +3,6 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import {
     Box,
     Card,
-    CardActionArea,
     CardContent,
     CardMedia,
     Chip,
