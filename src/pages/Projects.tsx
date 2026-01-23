@@ -26,6 +26,14 @@ interface Project {
 
 const projects: Project[] = [
     {
+        title: "Real-Money Golf Wagering Platform",
+        description:
+            "First-to-market wagering system for golf simulators featuring a React Native mobile app and full backend infrastructure. Real-time scoring integration with Trackman, compliant payment processing via Lucra, automated bracket progression, and scalable tournament management handling concurrent matches.",
+        image: "/images/golfWagering.png",
+        technologies: ["React Native", "NestJS", "Trackman API", "Lucra API", "AWS", "PostgreSQL"],
+        liveUrl: "https://fiveirongolf.com/en-us/leagues",
+    },
+    {
         title: "Golf Simulator Booking Application",
         description:
             "Integrated MindBody, Firebase, and AWS services to create a seamless booking experience for golf simulator users.",
