@@ -190,9 +190,8 @@ const Home: React.FC = () => {
                                         }}
                                     >
                                         Senior Staff Engineer with a track record of shipping high-impact products.
-                                        From real-time wagering systems processing millions in bets to
-                                        telehealth platforms serving thousands daily—I turn complex problems into
-                                        elegant solutions.
+                                        From real-time wagering systems to telehealth platforms serving thousands
+                                        daily—I turn complex problems into elegant solutions.
                                     </Typography>
                                 </motion.div>
 

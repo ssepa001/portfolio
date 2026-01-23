@@ -446,7 +446,7 @@ const Resume: React.FC = () => {
                         description={[
                             "Lead full-stack development across multiple concurrent client projects, managing complete development lifecycle from software design and implementation through CI/CD deployment",
                             "Architect and deploy cloud infrastructure on AWS (ECS Fargate, Lambda, RDS, S3) and Google Cloud using Terraform, implementing containerized microservices with Docker and Kubernetes",
-                            "Led 2.5-year development of 5Iron Golf's complete digital ecosystem serving 14+ venues with 168+ simulator rooms, processing 5,000+ daily bookings and generating millions in annual wagering revenue",
+                            "Led 2.5-year development of 5Iron Golf's complete digital ecosystem serving 14+ venues with 168+ simulator rooms, processing 5,000+ daily bookings",
                             "Architected and built first-to-market real-money wagering system for golf simulators, integrating Trackman APIs for live scoring, Lucra APIs for compliant payments in legal states, MindBody for reservations, and Square for F&B ordering across React Native mobile app, React web app, and NestJS backend",
                             "Designed scalable near-real-time scoring system using AWS (ECS, RDS, SQS, webhooks) to handle concurrent tournaments and head-to-head matches, with automated bracket progression, flexible payout structures (50/50 splits, admin-defined percentages), and dead letter queues for fault tolerance",
                             "Developed real-time tournament management platform for multi-sport events using React Native, NestJS, and PostgreSQL with live scoring and bracket generation",
