@@ -28,9 +28,9 @@ const projects: Project[] = [
     {
         title: "Real-Money Golf Wagering Platform",
         description:
-            "First-to-market wagering system for golf simulators featuring a React Native mobile app and full backend infrastructure. Real-time scoring integration with Trackman, compliant payment processing via Lucra, automated bracket progression, and scalable tournament management handling concurrent matches.",
+            "First-to-market real-money wagering for golf simulators — React Native mobile + React web + NestJS backend. Real-time Trackman scoring, Lucra compliant payments, and automated bracket progression. AI-assisted development compressed a 3-year build into 2.5 years.",
         image: "/images/golfWagering.png",
-        technologies: ["React Native", "NestJS", "Trackman API", "Lucra API", "AWS", "PostgreSQL"],
+        technologies: ["React Native", "NestJS", "Trackman API", "Lucra API", "AWS", "PostgreSQL", "Claude AI"],
         liveUrl: "https://fiveirongolf.com/en-us/leagues",
     },
     {
@@ -362,9 +362,9 @@ const Projects: React.FC = () => {
                         color="text.secondary"
                         sx={{ mb: 8, maxWidth: "700px", mx: "auto" }}
                     >
-                        A collection of projects I've worked on, showcasing my
-                        expertise in full-stack development, cloud architecture,
-                        and modern web technologies.
+                        AI-accelerated full-stack systems — built to scale, secured by design.
+                        Each project delivered with a focus on maximizing output and efficiency
+                        while keeping quality and compliance non-negotiable.
                     </Typography>
                 </motion.div>
 

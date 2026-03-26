@@ -96,8 +96,8 @@ const Contact: React.FC = () => {
                         color="text.secondary"
                         sx={{ mb: 8, maxWidth: "600px", mx: "auto" }}
                     >
-                        Have a project in mind or just want to chat? I'd love to
-                        hear from you. Let's create something amazing together.
+                        Have a project that needs AI-accelerated engineering, a technical
+                        deep dive, or just want to connect? I'd love to hear from you.
                     </Typography>
                 </motion.div>
 

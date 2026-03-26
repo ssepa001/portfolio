@@ -194,6 +194,17 @@ const Resume: React.FC = () => {
 
     const skillCategories = [
         {
+            category: "AI & Productivity",
+            skills: [
+                "Claude AI",
+                "GitHub Copilot",
+                "Cursor",
+                "Custom LLM Pipelines",
+                "Prompt Engineering",
+                "AI-Augmented SDLC",
+            ],
+        },
+        {
             category: "Languages & Frameworks",
             skills: [
                 "JavaScript",
@@ -235,11 +246,11 @@ const Resume: React.FC = () => {
     ];
 
     const skillLevels = [
+        { skill: "AI-Augmented Development (Claude, Cursor, LLMs)", level: 95 },
         { skill: "React / React Native / TypeScript", level: 90 },
         { skill: "Node.js / NestJS", level: 90 },
         { skill: "AWS / Cloud Architecture", level: 90 },
         { skill: "PostgreSQL / MongoDB / DynamoDB", level: 85 },
-        { skill: "C++ / C / Java / ", level: 70 },
     ];
 
     return (
@@ -270,9 +281,9 @@ const Resume: React.FC = () => {
                         color="text.secondary"
                         sx={{ mb: 8, maxWidth: "700px", mx: "auto" }}
                     >
-                        10+ years of experience in full-stack development, cloud
-                        architecture, and building scalable applications that
-                        make an impact.
+                        10+ years building production systems — now amplified by
+                        AI-driven development workflows that maximize output
+                        and efficiency without compromising security or quality.
                     </Typography>
                 </motion.div>
 
@@ -314,18 +325,15 @@ const Resume: React.FC = () => {
                             color="text.secondary"
                             sx={{ lineHeight: 1.8 }}
                         >
-                            Senior Staff Software Engineer with 10+ years
-                            delivering production systems across startup and
-                            enterprise environments. Full-cycle ownership of
-                            architecture, implementation, deployment, and
-                            maintenance. Deep expertise in cloud infrastructure
-                            (AWS, GCP), modern JavaScript ecosystems (React,
-                            NestJS, Node.js), and SQL/NoSQL databases.
-                            Experienced technical bridge between design teams
-                            and implementation vendors, particularly on complex
-                            enterprise integrations. Track record of building
-                            scalable systems while managing multiple concurrent
-                            projects.
+                            Senior Staff Software Engineer & AI Usage Expert with 10+ years delivering
+                            production systems across startup and enterprise environments. I integrate AI
+                            tools (Claude, Cursor, custom LLM pipelines) into every phase of the SDLC to
+                            maximize team throughput, reduce cycle times, and eliminate repetitive toil —
+                            while keeping security, compliance, and code quality non-negotiable. Deep
+                            expertise in cloud infrastructure (AWS, GCP), modern JavaScript ecosystems
+                            (React, NestJS, Node.js), and SQL/NoSQL databases. Track record of building
+                            scalable systems, managing concurrent projects, and bridging design and
+                            implementation with measurable impact.
                         </Typography>
                     </Paper>
                 </motion.div>

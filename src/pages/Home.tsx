@@ -150,13 +150,13 @@ const Home: React.FC = () => {
                                     <Typography
                                         variant="h2"
                                         component="h2"
-                                        sx={{ 
-                                            mb: 4, 
+                                        sx={{
+                                            mb: 4,
                                             fontWeight: 700,
                                             color: theme.palette.text.primary,
                                         }}
                                     >
-                                        I craft{" "}
+                                        I engineer{" "}
                                         <Box
                                             component="span"
                                             sx={{
@@ -167,9 +167,8 @@ const Home: React.FC = () => {
                                                 fontWeight: 800,
                                             }}
                                         >
-                                            software that scales
+                                            smarter — with AI.
                                         </Box>
-                                        .
                                     </Typography>
                                 </motion.div>
 
@@ -189,9 +188,11 @@ const Home: React.FC = () => {
                                             fontWeight: 400,
                                         }}
                                     >
-                                        Senior Staff Engineer with a track record of shipping high-impact products.
-                                        From real-time wagering systems to telehealth platforms serving thousands
-                                        daily—I turn complex problems into elegant solutions.
+                                        Senior Staff Engineer & AI Usage Expert with 10+ years shipping production systems.
+                                        I leverage AI-powered workflows — Claude, Cursor, and custom LLM pipelines — to
+                                        multiply team output and accelerate delivery, without sacrificing security or code quality.
+                                        From real-money wagering platforms to nationwide telehealth systems, I turn complex
+                                        problems into elegant, scalable solutions.
                                     </Typography>
                                 </motion.div>
 
