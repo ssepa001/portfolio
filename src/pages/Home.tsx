@@ -1,470 +1,226 @@
-import CodeIcon from "@mui/icons-material/Code";
-import EmailIcon from "@mui/icons-material/Email";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import LockIcon from "@mui/icons-material/Lock";
-import PersonIcon from "@mui/icons-material/Person";
-import PsychologyIcon from "@mui/icons-material/Psychology";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    Paper,
-    Stack,
-    Typography,
-    useTheme,
-} from "@mui/material";
-import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const featureCards = [
-    {
-        icon: <PsychologyIcon sx={{ fontSize: 36 }} />,
-        title: "AI-Augmented Development",
-        description:
-            "I use Claude, Cursor, and custom LLM pipelines to 10x engineering throughput — with rigorous review gates to ensure every line is production-ready.",
-        color: "#4fdbc8",
-    },
-    {
-        icon: <LockIcon sx={{ fontSize: 36 }} />,
-        title: "Security-First Engineering",
-        description:
-            "Every architecture decision considers HIPAA, PCI compliance, and zero-trust principles. AI accelerates output — security is never the tradeoff.",
-        color: "#ffb95f",
-    },
-    {
-        icon: <VerifiedIcon sx={{ fontSize: 36 }} />,
-        title: "Quality at Scale",
-        description:
-            "50% QA cycle reduction through AI-assisted automated testing, code review culture, and CI/CD discipline across concurrent client projects.",
-        color: "#4fdbc8",
-    },
-];
-
-const FloatingElement = ({ delay = 0 }: { delay?: number }) => {
-    return (
-        <motion.div
-            initial={{ y: 0 }}
-            animate={{ y: [-20, 20, -20] }}
-            transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay,
-            }}
-            style={{
-                position: "absolute",
-                width: "150px",
-                height: "150px",
-                borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
-                background:
-                    "linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(245, 158, 11, 0.08))",
-                filter: "blur(40px)",
-                zIndex: 0,
-            }}
-        />
-    );
+const fadeUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
 };
 
-const Home: React.FC = () => {
-    const theme = useTheme();
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"],
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
+const Home = () => {
     return (
-        <Box ref={containerRef} sx={{ width: "100%", overflow: "hidden" }}>
-            <Container maxWidth="xl" disableGutters>
-
-                <Box
-                    sx={{
-                        minHeight: "calc(100vh - 120px)",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        position: "relative",
-                        py: { xs: 8, md: 12 },
-                    }}
-                >
-                    {/* Floating Background Elements */}
-                    <FloatingElement delay={0} />
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: "20%",
-                            right: "10%",
-                            zIndex: 0,
-                        }}
-                    >
-                        <FloatingElement delay={1} />
-                    </Box>
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            bottom: "20%",
-                            left: "15%",
-                            zIndex: 0,
-                        }}
-                    >
-                        <FloatingElement delay={2} />
-                    </Box>
-
-                    <motion.div style={{ y, opacity }}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: {
-                                    xs: "column-reverse",
-                                    md: "row",
-                                },
-                                alignItems: "center",
-                                gap: { xs: 6, md: 8 },
-                                position: "relative",
-                                zIndex: 1,
-                            }}
-                        >
-                            <Box sx={{ flex: 1, px: { xs: 2, md: 4 } }}>
-                                <motion.div
-                                    initial={{ opacity: 0, x: -50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.2 }}
-                                >
-                                    <Typography
-                                        variant="h5"
-                                        sx={{
-                                            color: theme.palette.primary.main,
-                                            mb: 1,
-                                            fontWeight: 600,
-                                            letterSpacing: "0.5px",
-                                        }}
-                                    >
-                                        Hey there, I'm
-                                    </Typography>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: -50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.3 }}
-                                >
-                                    <Typography
-                                        variant="h1"
-                                        component="h1"
-                                        sx={{
-                                            mb: 3,
-                                            fontWeight: 800,
-                                            background: `linear-gradient(120deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 50%, ${theme.palette.secondary.main} 100%)`,
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
-                                            backgroundClip: "text",
-                                            backgroundSize: "200% auto",
-                                        }}
-                                    >
-                                        Sam Sepasi.
-                                    </Typography>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: -50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.4 }}
-                                >
-                                    <Typography
-                                        variant="h2"
-                                        component="h2"
-                                        sx={{
-                                            mb: 4,
-                                            fontWeight: 700,
-                                            color: theme.palette.text.primary,
-                                        }}
-                                    >
-                                        I engineer{" "}
-                                        <Box
-                                            component="span"
-                                            sx={{
-                                                background: `linear-gradient(120deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                                                WebkitBackgroundClip: "text",
-                                                WebkitTextFillColor: "transparent",
-                                                backgroundClip: "text",
-                                                fontWeight: 800,
-                                            }}
-                                        >
-                                            smarter — with AI.
-                                        </Box>
-                                    </Typography>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: -50 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.5 }}
-                                >
-                                    <Typography
-                                        variant="body1"
-                                        sx={{
-                                            maxWidth: "600px",
-                                            mb: 5,
-                                            lineHeight: 1.8,
-                                            fontSize: "1.125rem",
-                                            color: theme.palette.text.secondary,
-                                            fontWeight: 400,
-                                        }}
-                                    >
-                                        Senior Staff Engineer & AI Usage Expert with 10+ years shipping production systems.
-                                        I leverage AI-powered workflows — Claude, Cursor, and custom LLM pipelines — to
-                                        multiply team output and accelerate delivery, without sacrificing security or code quality.
-                                        From real-money wagering platforms to nationwide telehealth systems, I turn complex
-                                        problems into elegant, scalable solutions.
-                                    </Typography>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.6 }}
-                                >
-                                    <Stack
-                                        direction={{ xs: "column", sm: "row" }}
-                                        spacing={2}
-                                    >
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            component={Link}
-                                            to="/projects"
-                                            startIcon={<CodeIcon />}
-                                            sx={{
-                                                px: 4,
-                                                py: 1.5,
-                                            }}
-                                        >
-                                            See My Work
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            color="primary"
-                                            size="large"
-                                            component={Link}
-                                            to="/resume"
-                                            startIcon={<PersonIcon />}
-                                            sx={{
-                                                px: 4,
-                                                py: 1.5,
-                                            }}
-                                        >
-                                            Resume
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            color="secondary"
-                                            size="large"
-                                            component={Link}
-                                            to="/contact"
-                                            startIcon={<EmailIcon />}
-                                            sx={{
-                                                px: 4,
-                                                py: 1.5,
-                                            }}
-                                        >
-                                            Let's Talk
-                                        </Button>
-                                    </Stack>
-                                </motion.div>
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    flex: { xs: "none", md: 1 },
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    position: "relative",
-                                }}
-                            >
-                                <motion.div
-                                    initial={{
-                                        opacity: 0,
-                                        scale: 0.5,
-                                        rotate: -10,
-                                    }}
-                                    animate={{
-                                        opacity: 1,
-                                        scale: 1,
-                                        rotate: 0,
-                                    }}
-                                    transition={{ duration: 0.8, delay: 0.3 }}
-                                >
-                                    <Box
-                                        sx={{
-                                            position: "relative",
-                                            "&::before": {
-                                                content: '""',
-                                                position: "absolute",
-                                                top: "-20px",
-                                                left: "-20px",
-                                                right: "-20px",
-                                                bottom: "-20px",
-                                                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                                                borderRadius: "50%",
-                                                filter: "blur(30px)",
-                                                opacity: 0.3,
-                                                animation:
-                                                    "pulse 3s ease-in-out infinite",
-                                            },
-                                            "@keyframes pulse": {
-                                                "0%, 100%": {
-                                                    opacity: 0.3,
-                                                    transform: "scale(1)",
-                                                },
-                                                "50%": {
-                                                    opacity: 0.5,
-                                                    transform: "scale(1.05)",
-                                                },
-                                            },
-                                        }}
-                                    >
-                                        <Avatar
-                                            alt="Sam Sepasi"
-                                            src="/images/profileImage.jpg"
-                                            sx={{
-                                                width: {
-                                                    xs: 220,
-                                                    sm: 280,
-                                                    md: 350,
-                                                },
-                                                height: {
-                                                    xs: 220,
-                                                    sm: 280,
-                                                    md: 350,
-                                                },
-                                                border: `4px solid ${theme.palette.primary.main}`,
-                                                boxShadow: `0 0 40px ${theme.palette.primary.main}50`,
-                                                position: "relative",
-                                                zIndex: 1,
-                                            }}
-                                        />
-                                    </Box>
-                                </motion.div>
-                            </Box>
-                        </Box>
-                    </motion.div>
-
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative z-10 pt-20"
+        >
+            {/* Hero Section */}
+            <section className="min-h-[921px] flex flex-col justify-center max-w-7xl mx-auto px-8 py-20 relative">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    {/* Left Column: 7 cols */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{
-                            duration: 1,
-                            delay: 1.2,
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                        }}
-                        style={{
-                            position: "absolute",
-                            bottom: "20px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            zIndex: 1,
-                        }}
+                        className="lg:col-span-7 space-y-8"
+                        initial="initial"
+                        animate="animate"
+                        transition={{ staggerChildren: 0.12 }}
                     >
-                        <KeyboardArrowDownIcon
-                            sx={{
-                                fontSize: 40,
-                                color: theme.palette.primary.main,
-                            }}
-                        />
-                    </motion.div>
-                </Box>
+                        <motion.div
+                            variants={fadeUp}
+                            transition={{ duration: 0.5 }}
+                            className="space-y-2"
+                        >
+                            <p className="font-label text-primary tracking-[0.2em] uppercase text-sm mb-4">
+                                Hey there, I'm
+                            </p>
+                            <h1 className="font-headline text-6xl md:text-8xl font-bold tracking-tighter kinetic-gradient-text leading-tight">
+                                Sam Sepasi.
+                            </h1>
+                            <h2 className="font-headline text-3xl md:text-4xl text-on-surface-variant mt-4 font-medium italic">
+                                I engineer smarter — with AI.
+                            </h2>
+                        </motion.div>
 
-                {/* Feature Cards */}
-                <Box sx={{ px: { xs: 2, md: 4 }, pb: { xs: 8, md: 12 } }}>
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                md: "repeat(3, 1fr)",
-                            },
-                            gap: 3,
-                        }}
-                    >
-                        {featureCards.map((card, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.15 }}
+                        <motion.p
+                            variants={fadeUp}
+                            transition={{ duration: 0.5 }}
+                            className="text-lg md:text-xl text-on-surface/80 leading-relaxed max-w-2xl"
+                        >
+                            Senior Staff Engineer &amp; AI Usage Expert with 10+
+                            years shipping production systems. I leverage
+                            AI-powered workflows to multiply team output,
+                            accelerate delivery, and eliminate toil — without
+                            sacrificing security or code quality. From
+                            real-money wagering platforms to nationwide
+                            telehealth systems, I turn complex problems into
+                            elegant, scalable solutions.
+                        </motion.p>
+
+                        <motion.div
+                            variants={fadeUp}
+                            transition={{ duration: 0.5 }}
+                            className="flex flex-wrap gap-4 pt-4"
+                        >
+                            <Link
+                                to="/projects"
+                                className="bg-primary-container text-on-primary px-8 py-4 rounded-xl font-bold tracking-wide hover:shadow-[0_0_20px_rgba(20,184,166,0.3)] transition-all duration-300 group flex items-center gap-2"
                             >
-                                <Paper
-                                    sx={{
-                                        p: { xs: 3, md: 4 },
-                                        height: "100%",
-                                        background: theme.palette.mode === "dark"
-                                            ? "rgba(34, 42, 61, 0.6)"
-                                            : theme.palette.background.paper,
-                                        position: "relative",
-                                        overflow: "hidden",
-                                        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                                        "&:hover": {
-                                            transform: "translateY(-6px)",
-                                            boxShadow: `0 24px 48px rgba(20, 184, 166, 0.12)`,
-                                        },
-                                        "&::before": {
-                                            content: '""',
-                                            position: "absolute",
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            height: "3px",
-                                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                                        },
+                                See My Work
+                                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
+                                    arrow_forward
+                                </span>
+                            </Link>
+                            <Link
+                                to="/resume"
+                                className="border border-primary/40 text-primary px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-primary/5 transition-all"
+                            >
+                                Resume
+                            </Link>
+                            <Link
+                                to="/contact"
+                                className="border border-secondary/40 text-secondary px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-secondary/5 transition-all"
+                            >
+                                Let's Talk
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right Column: 5 cols — Profile Photo */}
+                    <motion.div
+                        className="lg:col-span-5 flex justify-center lg:justify-end"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <div className="relative group">
+                            {/* Gradient glow ring */}
+                            <div className="absolute inset-[-8px] rounded-full bg-gradient-to-tr from-primary to-secondary opacity-40 blur-md group-hover:opacity-70 transition-opacity" />
+                            {/* Photo circle */}
+                            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-primary/20 bg-surface-container-high">
+                                <img
+                                    src="/images/profileImage.jpg"
+                                    alt="Sam Sepasi"
+                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                />
+                            </div>
+                            {/* Status badge */}
+                            <div className="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl border border-outline-variant/20 shadow-xl">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                    <span className="font-label text-xs tracking-widest uppercase text-on-surface-variant whitespace-nowrap">
+                                        System Status: Optimized
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Scroll Indicator */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+                    <span className="font-label text-[10px] tracking-[0.3em] uppercase">
+                        Explore
+                    </span>
+                    <span className="material-symbols-outlined animate-bounce">
+                        keyboard_double_arrow_down
+                    </span>
+                </div>
+            </section>
+
+            {/* Feature Cards Section */}
+            <section className="bg-surface-container-low py-32 px-8">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Card 1 */}
+                        <motion.div
+                            className="glass-card p-10 rounded-xl border border-outline-variant/10 hover:border-primary/30 transition-all duration-500 group relative overflow-hidden"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/15 transition-colors" />
+                            <div className="mb-8">
+                                <span
+                                    className="material-symbols-outlined text-primary text-4xl"
+                                    style={{
+                                        fontVariationSettings: "'FILL' 1",
                                     }}
                                 >
-                                    <Box
-                                        sx={{
-                                            color: card.color,
-                                            mb: 2,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            width: 64,
-                                            height: 64,
-                                            borderRadius: "16px",
-                                            background: `${card.color}15`,
-                                            border: `1px solid ${card.color}30`,
-                                        }}
-                                    >
-                                        {card.icon}
-                                    </Box>
-                                    <Typography
-                                        variant="h6"
-                                        fontWeight={700}
-                                        sx={{ mb: 1.5 }}
-                                    >
-                                        {card.title}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        sx={{ lineHeight: 1.8 }}
-                                    >
-                                        {card.description}
-                                    </Typography>
-                                </Paper>
-                            </motion.div>
-                        ))}
-                    </Box>
-                </Box>
-            </Container>
-        </Box>
+                                    psychology
+                                </span>
+                            </div>
+                            <h3 className="font-headline text-xl font-bold mb-4 text-on-surface">
+                                AI-Augmented Development
+                            </h3>
+                            <p className="text-on-surface-variant leading-relaxed text-sm">
+                                I use Claude, Cursor, and custom AI pipelines to
+                                10x engineering throughput while maintaining
+                                rigorous review gates.
+                            </p>
+                        </motion.div>
+
+                        {/* Card 2 — staggered down on desktop */}
+                        <motion.div
+                            className="glass-card p-10 rounded-xl border border-outline-variant/10 hover:border-secondary/30 transition-all duration-500 group relative overflow-hidden md:mt-8"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-secondary/15 transition-colors" />
+                            <div className="mb-8">
+                                <span
+                                    className="material-symbols-outlined text-secondary text-4xl"
+                                    style={{
+                                        fontVariationSettings: "'FILL' 1",
+                                    }}
+                                >
+                                    encrypted
+                                </span>
+                            </div>
+                            <h3 className="font-headline text-xl font-bold mb-4 text-on-surface">
+                                Security-First Engineering
+                            </h3>
+                            <p className="text-on-surface-variant leading-relaxed text-sm">
+                                Every architecture decision considers threat
+                                modeling, compliance (HIPAA, PCI), and
+                                zero-trust principles.
+                            </p>
+                        </motion.div>
+
+                        {/* Card 3 */}
+                        <motion.div
+                            className="glass-card p-10 rounded-xl border border-outline-variant/10 hover:border-primary/30 transition-all duration-500 group relative overflow-hidden"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/15 transition-colors" />
+                            <div className="mb-8">
+                                <span
+                                    className="material-symbols-outlined text-primary text-4xl"
+                                    style={{
+                                        fontVariationSettings: "'FILL' 1",
+                                    }}
+                                >
+                                    verified
+                                </span>
+                            </div>
+                            <h3 className="font-headline text-xl font-bold mb-4 text-on-surface">
+                                Quality at Scale
+                            </h3>
+                            <p className="text-on-surface-variant leading-relaxed text-sm">
+                                50% reduction in QA cycles through automated
+                                testing, code review culture, and CI/CD
+                                discipline.
+                            </p>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+        </motion.div>
     );
 };
 

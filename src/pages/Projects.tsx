@@ -1,17 +1,4 @@
-import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
-import {
-    Box,
-    Card,
-    CardContent,
-    CardMedia,
-    Chip,
-    Container,
-    IconButton,
-    Stack,
-    Typography,
-    useTheme,
-} from "@mui/material";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 
@@ -30,7 +17,15 @@ const projects: Project[] = [
         description:
             "First-to-market real-money wagering for golf simulators — React Native mobile + React web + NestJS backend. Real-time Trackman scoring, Lucra compliant payments, and automated bracket progression. AI-assisted development compressed a 3-year build into 2.5 years.",
         image: "/images/golfWagering.png",
-        technologies: ["React Native", "NestJS", "Trackman API", "Lucra API", "AWS", "PostgreSQL", "Claude AI"],
+        technologies: [
+            "React Native",
+            "NestJS",
+            "Trackman API",
+            "Lucra API",
+            "AWS",
+            "PostgreSQL",
+            "Claude AI",
+        ],
         liveUrl: "https://fiveirongolf.com/en-us/leagues",
     },
     {
@@ -100,7 +95,6 @@ const ProjectCard = ({
     project: Project;
     index: number;
 }) => {
-    const theme = useTheme();
     const cardRef = useRef<HTMLDivElement>(null);
 
     const mouseX = useMotionValue(0);
@@ -149,235 +143,86 @@ const ProjectCard = ({
                 whileHover={{ scale: 1.02, z: 50 }}
                 transition={{ duration: 0.3 }}
             >
-                <Card
-                    sx={{
-                        height: "100%",
-                        minHeight: 550,
-                        display: "flex",
-                        flexDirection: "column",
-                        background: theme.palette.background.paper,
-                        overflow: "hidden",
-                        position: "relative",
-                        "&::before": {
-                            content: '""',
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            background: `linear-gradient(135deg, ${theme.palette.primary.main}10, ${theme.palette.secondary.main}10)`,
-                            opacity: 0,
-                            transition: "opacity 0.3s ease",
-                            zIndex: 1,
-                        },
-                        "&:hover::before": {
-                            opacity: 1,
-                        },
-                        "&:hover": {
-                            boxShadow: `0 20px 40px -15px ${theme.palette.primary.main}40`,
-                        },
-                    }}
-                >
-                    <Box
-                        sx={{
-                            position: "relative",
-                            overflow: "hidden",
-                            height: 220,
-                            flexShrink: 0,
-                        }}
-                    >
-                        <CardMedia
-                            component="img"
-                            image={project.image}
+                <div className="h-full min-h-[550px] flex flex-col bg-surface-container-high rounded-2xl overflow-hidden relative group hover:shadow-[0_20px_40px_-15px_rgba(79,219,200,0.25)] transition-shadow duration-300">
+                    {/* Hover gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none" />
+
+                    {/* Image */}
+                    <div className="relative overflow-hidden h-[220px] shrink-0">
+                        <img
+                            src={project.image}
                             alt={project.title}
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                transition: "transform 0.4s ease",
-                                "&:hover": {
-                                    transform: "scale(1.1)",
-                                },
-                            }}
+                            className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-110"
                         />
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                background: `linear-gradient(180deg, transparent 0%, ${theme.palette.background.paper}E6 100%)`,
-                            }}
-                        />
-                    </Box>
-                    <CardContent
-                        sx={{
-                            flexGrow: 1,
-                            position: "relative",
-                            zIndex: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            p: 3,
-                        }}
-                    >
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                                fontWeight="bold"
-                                sx={{
-                                    background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                                    WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent",
-                                    mb: 2,
-                                    minHeight: "2.5em",
-                                }}
-                            >
-                                {project.title}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                sx={{
-                                    alignContent: "flex-start",
-                                    lineHeight: 1.7,
-                                    mb: 3,
-                                    flexGrow: 1,
-                                    minHeight: "4.5em",
-                                }}
-                            >
-                                {project.description}
-                            </Typography>
-                            <Box
-                                sx={{
-                                    mb: 2,
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: 1,
-                                }}
-                            >
-                                {project.technologies.map((tech, techIndex) => (
-                                    <Chip
-                                        key={techIndex}
-                                        label={tech}
-                                        size="small"
-                                        sx={{
-                                            background: `linear-gradient(135deg, ${theme.palette.primary.main}20, ${theme.palette.secondary.main}20)`,
-                                            border: `1px solid ${theme.palette.primary.main}40`,
-                                            fontWeight: 600,
-                                            fontSize: "0.75rem",
-                                            transition: "all 0.3s ease",
-                                            "&:hover": {
-                                                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                                                transform: "translateY(-2px)",
-                                            },
-                                        }}
-                                    />
-                                ))}
-                            </Box>
-                            <Stack
-                                direction="row"
-                                spacing={1}
-                                justifyContent="flex-end"
-                            >
-                                {project.liveUrl && (
-                                    <IconButton
-                                        aria-label="live demo"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            window.open(
-                                                project.liveUrl,
-                                                "_blank",
-                                            );
-                                        }}
-                                        sx={{
-                                            color: theme.palette.primary.main,
-                                            "&:hover": {
-                                                background: `${theme.palette.primary.main}20`,
-                                                transform: "scale(1.1)",
-                                            },
-                                        }}
-                                    >
-                                        <LaunchIcon />
-                                    </IconButton>
-                                )}
-                                {project.githubUrl && (
-                                    <IconButton
-                                        aria-label="github"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            window.open(
-                                                project.githubUrl,
-                                                "_blank",
-                                            );
-                                        }}
-                                        sx={{
-                                            color: theme.palette.primary.main,
-                                            "&:hover": {
-                                                background: `${theme.palette.primary.main}20`,
-                                                transform: "scale(1.1)",
-                                            },
-                                        }}
-                                    >
-                                        <GitHubIcon />
-                                    </IconButton>
-                                )}
-                            </Stack>
-                        </CardContent>
-                    </Card>
-                </motion.div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-high/90" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col flex-grow p-6 relative z-20">
+                        <h3 className="font-headline font-bold text-xl mb-3 text-gradient min-h-[2.5em]">
+                            {project.title}
+                        </h3>
+                        <p className="text-on-surface-variant text-sm leading-relaxed mb-4 flex-grow min-h-[4.5em]">
+                            {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {project.technologies.map((tech, techIndex) => (
+                                <span
+                                    key={techIndex}
+                                    className="text-xs font-semibold px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-on-surface-variant hover:bg-primary/20 hover:-translate-y-0.5 transition-all duration-300"
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                        <div className="flex justify-end">
+                            {project.liveUrl && (
+                                <button
+                                    aria-label="live demo"
+                                    onClick={() =>
+                                        window.open(project.liveUrl, "_blank")
+                                    }
+                                    className="text-primary hover:bg-primary/10 rounded-full p-2 transition-all duration-200 hover:scale-110"
+                                >
+                                    <LaunchIcon fontSize="small" />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
         </motion.div>
     );
 };
 
 const Projects: React.FC = () => {
-    const theme = useTheme();
-
     return (
-        <Container maxWidth="lg">
-            <Box sx={{ py: { xs: 6, md: 10 } }}>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative z-10 pt-20"
+        >
+            <div className="max-w-7xl mx-auto px-8 py-16">
                 <motion.div
                     initial={{ opacity: 0, y: -30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
                 >
-                    <Typography
-                        variant="h2"
-                        component="h1"
-                        align="center"
-                        fontWeight="bold"
-                        sx={{
-                            mb: 2,
-                            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        }}
-                    >
+                    <h1 className="font-headline text-5xl md:text-6xl font-bold tracking-tighter kinetic-gradient-text mb-4">
                         Featured Projects
-                    </Typography>
-                    <Typography
-                        variant="h6"
-                        align="center"
-                        color="text.secondary"
-                        sx={{ mb: 8, maxWidth: "700px", mx: "auto" }}
-                    >
-                        AI-accelerated full-stack systems — built to scale, secured by design.
-                        Each project delivered with a focus on maximizing output and efficiency
-                        while keeping quality and compliance non-negotiable.
-                    </Typography>
+                    </h1>
+                    <p className="text-on-surface-variant text-lg max-w-2xl mx-auto leading-relaxed">
+                        AI-accelerated full-stack systems — built to scale,
+                        secured by design. Each project delivered with a focus
+                        on maximizing output and efficiency while keeping
+                        quality and compliance non-negotiable.
+                    </p>
                 </motion.div>
 
-                <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "repeat(2, 1fr)",
-                        },
-                        gap: 4,
-                    }}
-                >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                     {projects.map((project, index) => (
                         <ProjectCard
                             key={index}
@@ -385,9 +230,9 @@ const Projects: React.FC = () => {
                             index={index}
                         />
                     ))}
-                </Box>
-            </Box>
-        </Container>
+                </div>
+            </div>
+        </motion.div>
     );
 };
 
