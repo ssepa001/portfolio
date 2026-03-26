@@ -1,12 +1,16 @@
 import CodeIcon from "@mui/icons-material/Code";
 import EmailIcon from "@mui/icons-material/Email";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
+import PsychologyIcon from "@mui/icons-material/Psychology";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import {
     Avatar,
     Box,
     Button,
     Container,
+    Paper,
     Stack,
     Typography,
     useTheme,
@@ -14,6 +18,30 @@ import {
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+
+const featureCards = [
+    {
+        icon: <PsychologyIcon sx={{ fontSize: 36 }} />,
+        title: "AI-Augmented Development",
+        description:
+            "I use Claude, Cursor, and custom LLM pipelines to 10x engineering throughput — with rigorous review gates to ensure every line is production-ready.",
+        color: "#4fdbc8",
+    },
+    {
+        icon: <LockIcon sx={{ fontSize: 36 }} />,
+        title: "Security-First Engineering",
+        description:
+            "Every architecture decision considers HIPAA, PCI compliance, and zero-trust principles. AI accelerates output — security is never the tradeoff.",
+        color: "#ffb95f",
+    },
+    {
+        icon: <VerifiedIcon sx={{ fontSize: 36 }} />,
+        title: "Quality at Scale",
+        description:
+            "50% QA cycle reduction through AI-assisted automated testing, code review culture, and CI/CD discipline across concurrent client projects.",
+        color: "#4fdbc8",
+    },
+];
 
 const FloatingElement = ({ delay = 0 }: { delay?: number }) => {
     return (
@@ -54,6 +82,7 @@ const Home: React.FC = () => {
     return (
         <Box ref={containerRef} sx={{ width: "100%", overflow: "hidden" }}>
             <Container maxWidth="xl" disableGutters>
+
                 <Box
                     sx={{
                         minHeight: "calc(100vh - 120px)",
@@ -352,6 +381,87 @@ const Home: React.FC = () => {
                             }}
                         />
                     </motion.div>
+                </Box>
+
+                {/* Feature Cards */}
+                <Box sx={{ px: { xs: 2, md: 4 }, pb: { xs: 8, md: 12 } }}>
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "1fr",
+                                md: "repeat(3, 1fr)",
+                            },
+                            gap: 3,
+                        }}
+                    >
+                        {featureCards.map((card, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.15 }}
+                            >
+                                <Paper
+                                    sx={{
+                                        p: { xs: 3, md: 4 },
+                                        height: "100%",
+                                        background: theme.palette.mode === "dark"
+                                            ? "rgba(34, 42, 61, 0.6)"
+                                            : theme.palette.background.paper,
+                                        position: "relative",
+                                        overflow: "hidden",
+                                        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                        "&:hover": {
+                                            transform: "translateY(-6px)",
+                                            boxShadow: `0 24px 48px rgba(20, 184, 166, 0.12)`,
+                                        },
+                                        "&::before": {
+                                            content: '""',
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            height: "3px",
+                                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                        },
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            color: card.color,
+                                            mb: 2,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            width: 64,
+                                            height: 64,
+                                            borderRadius: "16px",
+                                            background: `${card.color}15`,
+                                            border: `1px solid ${card.color}30`,
+                                        }}
+                                    >
+                                        {card.icon}
+                                    </Box>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight={700}
+                                        sx={{ mb: 1.5 }}
+                                    >
+                                        {card.title}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        sx={{ lineHeight: 1.8 }}
+                                    >
+                                        {card.description}
+                                    </Typography>
+                                </Paper>
+                            </motion.div>
+                        ))}
+                    </Box>
                 </Box>
             </Container>
         </Box>

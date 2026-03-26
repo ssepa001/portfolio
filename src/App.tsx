@@ -21,7 +21,7 @@ import {
     useMediaQuery,
     useScrollTrigger,
 } from "@mui/material";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { Link, Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -35,22 +35,22 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
         mode,
         ...(mode === 'dark' ? {
             primary: {
-                main: "#14b8a6",
-                light: "#2dd4bf",
-                dark: "#0f766e",
+                main: "#4fdbc8",
+                light: "#71f8e4",
+                dark: "#14b8a6",
             },
             secondary: {
-                main: "#f59e0b",
-                light: "#fbbf24",
-                dark: "#d97706",
+                main: "#ffb95f",
+                light: "#ffddb8",
+                dark: "#ee9800",
             },
             background: {
-                default: "#0f172a",
-                paper: "rgba(30, 41, 59, 0.7)",
+                default: "#0b1326",
+                paper: "rgba(34, 42, 61, 0.75)",
             },
             text: {
-                primary: "#f1f5f9",
-                secondary: "#94a3b8",
+                primary: "#dae2fd",
+                secondary: "#bbcac6",
             },
         } : {
             primary: {
@@ -76,29 +76,41 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
     typography: {
         fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
         h1: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
             fontWeight: 800,
             fontSize: "clamp(2.5rem, 8vw, 5rem)",
             letterSpacing: "-0.02em",
             lineHeight: 1.1,
         },
         h2: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
             fontWeight: 700,
             fontSize: "clamp(2rem, 6vw, 3.5rem)",
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
             lineHeight: 1.2,
         },
         h3: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
             fontWeight: 700,
             fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
             letterSpacing: "-0.01em",
         },
         h4: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
             fontWeight: 600,
             fontSize: "clamp(1.25rem, 4vw, 2rem)",
         },
+        h5: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+            fontWeight: 600,
+        },
+        h6: {
+            fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+            fontWeight: 600,
+        },
         body1: {
             fontSize: "1.125rem",
-            lineHeight: 1.7,
+            lineHeight: 1.8,
         },
     },
     shape: {
@@ -108,30 +120,34 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: "12px",
+                    borderRadius: "10px",
                     textTransform: "none",
+                    fontFamily: "'Space Grotesk', 'Inter', sans-serif",
                     fontSize: "1rem",
                     fontWeight: 600,
                     padding: "12px 28px",
                     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 },
                 contained: {
-                    color: "#ffffff",
-                    boxShadow: mode === 'dark' 
-                        ? "0 4px 14px 0 rgba(20, 184, 166, 0.39)"
-                        : "0 4px 14px 0 rgba(13, 148, 136, 0.39)",
+                    color: mode === 'dark' ? "#003731" : "#ffffff",
+                    boxShadow: mode === 'dark'
+                        ? "0 4px 20px rgba(79, 219, 200, 0.25)"
+                        : "0 4px 14px rgba(13, 148, 136, 0.39)",
                     "&:hover": {
                         boxShadow: mode === 'dark'
-                            ? "0 6px 20px rgba(20, 184, 166, 0.5)"
+                            ? "0 8px 30px rgba(79, 219, 200, 0.4)"
                             : "0 6px 20px rgba(13, 148, 136, 0.5)",
                         transform: "translateY(-2px)",
                     },
                 },
                 outlined: {
-                    borderWidth: "2px",
+                    borderWidth: "1.5px",
                     "&:hover": {
-                        borderWidth: "2px",
+                        borderWidth: "1.5px",
                         transform: "translateY(-2px)",
+                        boxShadow: mode === 'dark'
+                            ? "0 4px 20px rgba(79, 219, 200, 0.15)"
+                            : "none",
                     },
                 },
             },
@@ -140,17 +156,26 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
             styleOverrides: {
                 root: {
                     backgroundImage: "none",
-                    backdropFilter: "blur(20px)",
-                    border: mode === 'dark' 
-                        ? "1px solid rgba(255, 255, 255, 0.1)" 
+                    backdropFilter: "blur(12px)",
+                    border: mode === 'dark'
+                        ? "1px solid rgba(60, 73, 71, 0.4)"
                         : "1px solid rgba(0, 0, 0, 0.05)",
+                    boxShadow: mode === 'dark'
+                        ? "0 20px 40px rgba(20, 184, 166, 0.06)"
+                        : "0 4px 24px rgba(0,0,0,0.06)",
                 },
             },
         },
         MuiCard: {
             styleOverrides: {
                 root: {
-                    backdropFilter: "blur(20px)",
+                    backdropFilter: "blur(12px)",
+                    border: mode === 'dark'
+                        ? "1px solid rgba(60, 73, 71, 0.4)"
+                        : "1px solid rgba(0, 0, 0, 0.05)",
+                    boxShadow: mode === 'dark'
+                        ? "0 20px 40px rgba(20, 184, 166, 0.06)"
+                        : "none",
                     transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 },
             },
@@ -158,14 +183,6 @@ const getTheme = (mode: 'light' | 'dark') => createTheme({
     },
 });
 
-const quotes = [
-    "The best way to predict the future is to invent it. - Alan Kay",
-    "Innovation distinguishes between a leader and a follower. - Steve Jobs",
-    "The only way to do great work is to love what you do. - Steve Jobs",
-    "Code is like humor. When you have to explain it, it's bad. - Cory House",
-    "First, solve the problem. Then, write the code. - John Johnson",
-    "Talk is cheap. Show me the code. - Linus Torvalds",
-];
 
 function ScrollToTop() {
     const { pathname } = useLocation();
@@ -178,7 +195,6 @@ function ScrollToTop() {
 }
 
 function App() {
-    const [currentQuote, setCurrentQuote] = useState(quotes[0]);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [mode, setMode] = useState<'light' | 'dark'>('dark');
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -194,14 +210,6 @@ function App() {
             setMode(prefersDarkMode ? 'dark' : 'light');
         }
     }, [prefersDarkMode]);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-        }, 8000);
-
-        return () => clearInterval(intervalId);
-    }, []);
 
     const toggleTheme = () => {
         const newMode = mode === 'dark' ? 'light' : 'dark';
@@ -231,8 +239,8 @@ function App() {
                         minHeight: "100vh",
                         display: "flex",
                         flexDirection: "column",
-                        background: mode === 'dark' 
-                            ? "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)"
+                        background: mode === 'dark'
+                            ? "#0b1326"
                             : "linear-gradient(135deg, #f8fafc 0%, #e0f2f1 50%, #f8fafc 100%)",
                         position: "relative",
                         overflow: "hidden",
@@ -244,29 +252,31 @@ function App() {
                             right: 0,
                             bottom: 0,
                             background: mode === 'dark'
-                                ? "radial-gradient(circle at 20% 50%, rgba(20, 184, 166, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%)"
+                                ? "radial-gradient(ellipse at 15% 40%, rgba(79, 219, 200, 0.07) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(255, 185, 95, 0.07) 0%, transparent 55%)"
                                 : "radial-gradient(circle at 20% 50%, rgba(13, 148, 136, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(234, 88, 12, 0.06) 0%, transparent 50%)",
                             zIndex: 0,
+                            pointerEvents: "none",
                         },
                     }}
                 >
-                    <AppBar 
-                        position="sticky" 
-                        elevation={trigger ? 4 : 0}
+                    <AppBar
+                        position="sticky"
+                        elevation={0}
                         sx={{
-                            background: trigger 
-                                ? mode === 'dark'
-                                    ? "rgba(30, 41, 59, 0.8)"
-                                    : "rgba(255, 255, 255, 0.9)"
-                                : "transparent",
-                            backdropFilter: trigger ? "blur(20px)" : "none",
+                            background: mode === 'dark'
+                                ? "rgba(19, 27, 46, 0.75)"
+                                : "rgba(255, 255, 255, 0.85)",
+                            backdropFilter: "blur(24px)",
+                            borderBottom: mode === 'dark'
+                                ? "1px solid rgba(60, 73, 71, 0.25)"
+                                : "1px solid rgba(0, 0, 0, 0.06)",
                             transition: "all 0.3s ease-in-out",
-                            borderBottom: trigger 
+                            boxShadow: trigger
                                 ? mode === 'dark'
-                                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                                    : "1px solid rgba(0, 0, 0, 0.05)"
+                                    ? "0 4px 24px rgba(0,0,0,0.3)"
+                                    : "0 4px 24px rgba(0,0,0,0.08)"
                                 : "none",
-                            color: mode === 'dark' ? '#f1f5f9' : '#0f172a',
+                            color: mode === 'dark' ? '#dae2fd' : '#0f172a',
                         }}
                     >
                         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -394,32 +404,6 @@ function App() {
                             zIndex: 1,
                         }}
                     >
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentQuote}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 10 }}
-                                transition={{ duration: 0.5 }}
-                                style={{ marginBottom: "2rem" }}
-                            >
-                                <Typography
-                                    variant="body1"
-                                    align="center"
-                                    sx={{
-                                        fontStyle: "italic",
-                                        color: mode === 'dark' ? 'text.secondary' : '#64748b',
-                                        fontWeight: mode === 'dark' ? 400 : 500,
-                                        maxWidth: "800px",
-                                        margin: "0 auto",
-                                        padding: "1rem",
-                                    }}
-                                >
-                                    "{currentQuote}"
-                                </Typography>
-                            </motion.div>
-                        </AnimatePresence>
-
                         <AnimatePresence mode="wait">
                             <Routes>
                                 <Route path="/" element={<Home />} />
